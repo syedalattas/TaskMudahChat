@@ -25,6 +25,7 @@ class ChatActivity : AppCompatActivity() {
         initBinding()
         initList()
         observeData()
+        sendButton()
     }
 
     private fun initBinding() {
@@ -44,5 +45,11 @@ class ChatActivity : AppCompatActivity() {
         viewModel.chats.observe(this, {
             chatAdapter.submitList(it)
         })
+    }
+
+    private fun sendButton(){
+        binding.btnSend.setOnClickListener{
+            viewModel.sendMessage("Hello there")
+        }
     }
 }

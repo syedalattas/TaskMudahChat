@@ -1,6 +1,5 @@
 package com.example.taskmudahchat.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,6 @@ class ChatAdapter : ListAdapter<Chat, BaseViewHolder>(ChatDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
-        Log.d("what is the view type", viewType.toString())
         return when (viewType) {
             OUTGOING -> {
                 val view = ListChatOutgoingBinding.inflate(layoutInflater, parent, false)
