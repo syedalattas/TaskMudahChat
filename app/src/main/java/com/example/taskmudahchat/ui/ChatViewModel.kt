@@ -1,15 +1,13 @@
 package com.example.taskmudahchat.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.example.taskmudahchat.data.Chat
-import com.example.taskmudahchat.data.repository.ChatRepository
+import com.example.taskmudahchat.data.repository.BaseRepository
 
-class ChatViewModel : ViewModel() {
+class ChatViewModel @ViewModelInject constructor(chatRepository: BaseRepository) :
+    ViewModel() {
 
-    val chats: LiveData<List<Chat>> = liveData {
-        val chatRepository = ChatRepository()
-        emit(chatRepository.getChats())
-    }
+    val chats: LiveData<List<Chat>> = chatRepository.getChats()
 }
