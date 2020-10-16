@@ -36,4 +36,5 @@ ext {
     arch_testing_version = "2.1.0"
     room_version = "2.2.5"
     retrofit_version = "2.9.0"
+    data_binding_version = "4.0.2"
 }

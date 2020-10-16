@@ -30,8 +30,9 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    // allow view bindings
+    // allow view and data bindings
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
 
@@ -51,6 +52,9 @@ dependencies {
 
     // Material design
     implementation "com.google.android.material:material:$material_version"
+
+    // data binding
+    kapt "com.android.databinding:compiler:$data_binding_version"
 
     // life cycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"

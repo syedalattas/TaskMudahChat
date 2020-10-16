@@ -3,9 +3,11 @@ package com.example.taskmudahchat.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmudahchat.R
 import com.example.taskmudahchat.databinding.ActivityChatBinding
+import com.example.taskmudahchat.ui.adapter.ChatAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,17 +22,16 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_chat)
 
         initBinding()
         initList()
         observeData()
-        sendButton()
     }
 
     private fun initBinding() {
-        binding = ActivityChatBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding.setLifecycleOwner { lifecycle }
+        binding.chatViewModel = viewModel
     }
 
     private fun initList() {
@@ -45,11 +46,5 @@ class ChatActivity : AppCompatActivity() {
         viewModel.chats.observe(this, {
             chatAdapter.submitList(it)
         })
-    }
-
-    private fun sendButton(){
-        binding.btnSend.setOnClickListener{
-            viewModel.sendMessage("Hello there")
-        }
     }
 }
