@@ -1,7 +1,7 @@
 package com.example.taskmudahchat.data.di
 
-import com.example.taskmudahchat.data.repository.BaseRepository
 import com.example.taskmudahchat.data.repository.ChatRepository
+import com.example.taskmudahchat.data.repository.ChatRepositoryImpl
 import com.example.taskmudahchat.data.source.local.LocalSource
 import com.example.taskmudahchat.data.source.remote.ChatService
 import com.example.taskmudahchat.data.source.remote.RemoteSource
@@ -18,8 +18,8 @@ object RepositoryModule {
     fun provideChatRepository(
         localSource: LocalSource,
         remoteSource: RemoteSource
-    ): BaseRepository =
-        ChatRepository(localSource, remoteSource)
+    ): ChatRepository =
+        ChatRepositoryImpl(localSource, remoteSource)
 
     @Provides
     fun provideRemoteSource(chatService: ChatService): RemoteSource = RemoteSource(chatService)

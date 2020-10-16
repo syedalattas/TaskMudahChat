@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskmudahchat.data.Chat
 import com.example.taskmudahchat.data.DataResource
-import com.example.taskmudahchat.data.repository.BaseRepository
+import com.example.taskmudahchat.data.repository.ChatRepository
 import kotlinx.coroutines.launch
 
-class ChatViewModel @ViewModelInject constructor(private val chatRepository: BaseRepository) :
+class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
     ViewModel() {
 
     private val _isLoading = MutableLiveData(false)
