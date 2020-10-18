@@ -1,6 +1,6 @@
 package com.example.taskmudahchat.data.source.remote
 
-import com.example.taskmudahchat.data.SendResponse
+import com.example.taskmudahchat.data.model.SendResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

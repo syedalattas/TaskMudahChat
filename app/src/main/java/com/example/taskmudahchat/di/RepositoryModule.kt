@@ -1,4 +1,4 @@
-package com.example.taskmudahchat.data.di
+package com.example.taskmudahchat.di
 
 import com.example.taskmudahchat.data.repository.ChatRepository
 import com.example.taskmudahchat.data.repository.ChatRepositoryImpl

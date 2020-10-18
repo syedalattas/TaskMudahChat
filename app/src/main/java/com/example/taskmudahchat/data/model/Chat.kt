@@ -1,4 +1,4 @@
-package com.example.taskmudahchat.data
+package com.example.taskmudahchat.data.model
 
 import androidx.annotation.NonNull
 import androidx.room.Entity

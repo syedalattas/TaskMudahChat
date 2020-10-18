@@ -1,9 +1,9 @@
 package com.example.taskmudahchat.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.taskmudahchat.data.Chat
+import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.DataResource
-import com.example.taskmudahchat.data.SendResponse
+import com.example.taskmudahchat.data.model.SendResponse
 import com.example.taskmudahchat.data.source.local.LocalSource
 import com.example.taskmudahchat.data.source.remote.RemoteSource
 
@@ -18,12 +18,12 @@ class ChatRepositoryImpl(private val localSource: LocalSource, private val remot
                 val response: SendResponse? = result.body()
                 val newChat = Chat(response?.createdAt!!, "OUTGOING", response.message)
                 localSource.addChat(newChat)
-                DataResource.success()
+                DataResource.Success()
             } else {
-                DataResource.error(result.message())
+                DataResource.Error(result.message())
             }
         } catch (e: Exception) {
-            DataResource.error(e.message!!)
+            DataResource.Error(e.message!!)
         }
     }
 }

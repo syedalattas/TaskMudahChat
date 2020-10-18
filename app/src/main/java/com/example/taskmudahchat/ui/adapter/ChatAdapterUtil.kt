@@ -3,7 +3,7 @@ package com.example.taskmudahchat.ui.adapter
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.taskmudahchat.data.Chat
+import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.databinding.ListChatIncomingBinding
 import com.example.taskmudahchat.databinding.ListChatOutgoingBinding
 

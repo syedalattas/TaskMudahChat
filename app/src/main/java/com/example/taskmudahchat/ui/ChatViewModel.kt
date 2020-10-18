@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskmudahchat.data.Chat
+import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.DataResource
 import com.example.taskmudahchat.data.repository.ChatRepository
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
         viewModelScope.launch {
             val result = chatRepository.sendMessage(message!!)
             resetState()
-            if (result.status == DataResource.Status.ERROR) {
+            if (result is DataResource.Error) {
                 _isError.value = true
             }
         }

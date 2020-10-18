@@ -3,7 +3,7 @@ package com.example.taskmudahchat.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.example.taskmudahchat.data.Chat
+import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.databinding.ListChatIncomingBinding
 import com.example.taskmudahchat.databinding.ListChatOutgoingBinding
 

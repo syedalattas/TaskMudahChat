@@ -1,4 +1,4 @@
-package com.example.taskmudahchat.data.di
+package com.example.taskmudahchat.di
 
 import android.content.Context
 import androidx.room.Room

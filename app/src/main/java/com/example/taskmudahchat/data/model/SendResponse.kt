@@ -1,4 +1,4 @@
-package com.example.taskmudahchat.data
+package com.example.taskmudahchat.data.model
 
 data class SendResponse(
     val message: String?,

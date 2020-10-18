@@ -6,7 +6,7 @@
 
         <variable
             name="chat"
-            type="com.example.taskmudahchat.data.Chat" />
+            type="com.example.taskmudahchat.data.model.Chat" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
