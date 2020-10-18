@@ -5,39 +5,41 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.DataResource
+import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.ChatRepository
 import kotlinx.coroutines.launch
 
 class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
     ViewModel() {
 
-    private val _isLoading = MutableLiveData(false)
-    val loading: LiveData<Boolean> = _isLoading
-
-    private val _isError = MutableLiveData(false)
-    val isError: LiveData<Boolean> = _isError
-
+    // Two-way dataBinding, exposing MutableLiveData
     val newMessage = MutableLiveData<String>()
+
+    private val _viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.DefaultState())
+    val viewState: LiveData<ViewState> = _viewState
 
     val chats: LiveData<List<Chat>> = chatRepository.getChats()
 
     fun sendMessage() {
-        _isLoading.value = true
         val message = newMessage.value
+        _viewState.value = ViewState.LoadingState()
         viewModelScope.launch {
             val result = chatRepository.sendMessage(message!!)
-            resetState()
+            _viewState.value = ViewState.DefaultState()
+            newMessage.value = null
             if (result is DataResource.Error) {
-                _isError.value = true
+                _viewState.value = ViewState.ErrorState()
             }
         }
     }
+}
 
-    private fun resetState() {
-        _isError.value = false
-        _isLoading.value = false
-        newMessage.value = null
-    }
+sealed class ViewState(
+    val isError: Boolean? = false, // to be used in the UI to show error message
+    val isLoading: Boolean? = false,
+) {
+    class DefaultState : ViewState()
+    class LoadingState : ViewState(false, true)
+    class ErrorState: ViewState(true)
 }
