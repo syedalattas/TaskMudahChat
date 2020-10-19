@@ -9,8 +9,11 @@ import com.example.taskmudahchat.data.source.remote.RemoteSource
 
 class ChatRepositoryImpl(private val localSource: LocalSource, private val remoteSource: RemoteSource) :
     ChatRepository {
+
+    // get all chat from db
     override fun getChats(): LiveData<List<Chat>> = localSource.getChats()
 
+    // send message via api and store message to db on success
     override suspend fun sendMessage(message: String): DataResource {
         return try {
             val result = remoteSource.sendMessage(message)
