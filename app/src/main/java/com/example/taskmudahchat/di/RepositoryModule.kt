@@ -2,8 +2,9 @@ package com.example.taskmudahchat.di
 
 import com.example.taskmudahchat.data.repository.ChatRepository
 import com.example.taskmudahchat.data.repository.ChatRepositoryImpl
-import com.example.taskmudahchat.data.source.local.LocalSourceImpl
+import com.example.taskmudahchat.data.source.local.LocalSource
 import com.example.taskmudahchat.data.source.remote.ChatService
+import com.example.taskmudahchat.data.source.remote.RemoteSource
 import com.example.taskmudahchat.data.source.remote.RemoteSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -16,11 +17,11 @@ object RepositoryModule {
 
     @Provides
     fun provideChatRepository(
-        localSourceImpl: LocalSourceImpl,
-        remoteSourceImpl: RemoteSourceImpl
+        localSourceImpl: LocalSource,
+        remoteSourceImpl: RemoteSource
     ): ChatRepository =
         ChatRepositoryImpl(localSourceImpl, remoteSourceImpl)
 
     @Provides
-    fun provideRemoteSource(chatService: ChatService): RemoteSourceImpl = RemoteSourceImpl(chatService)
+    fun provideRemoteSource(chatService: ChatService): RemoteSource = RemoteSourceImpl(chatService)
 }

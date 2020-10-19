@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.data.source.FakeLocalSource
 import com.example.taskmudahchat.data.repository.data.source.FakeRemoteSource
+import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
@@ -63,29 +64,38 @@ class ChatRepositoryTest {
     }
 
     @Test
-    fun getChat_null_returnEmpty() {
-
-        // assuming db returns null
-        localSource.addChats(null)
-
-        // when getting all chats
-        val result = chatRepository.getChats()
-
-        // then chats should be empty instead of null
-        assertThat(result.value, `is`(notNullValue()))
-    }
-
-    @Test
     fun sendMessage_notNull_returnSuccess() = runBlockingTest {
 
         // assuming user send a message as such
         val message = "Message"
 
         // when sending a message
-        val result = remoteSource.sendMessage(message)
+        val result = chatRepository.sendMessage(message)
 
         // then response should be successful
-        assertThat(result.isSuccessful, `is`(true))
+        assertThat(result is ResponseWrapper.Success, `is`(true))
+    }
+
+    @Test
+    fun sendMessage_null_returnError() = runBlockingTest {
+
+        // when sending a null message
+        val result = chatRepository.sendMessage(null)
+
+        // then response should be error
+        assertThat(result is ResponseWrapper.Error, `is`(true))
+        assertThat(result.message, `is`("Message cannot be empty"))
+    }
+
+    @Test
+    fun sendMessage_empty_returnError() = runBlockingTest {
+
+        // when sending a null message
+        val result = chatRepository.sendMessage("")
+
+        // then response should be error
+        assertThat(result is ResponseWrapper.Error, `is`(true))
+        assertThat(result.message, `is`("Message cannot be empty"))
     }
 
 }

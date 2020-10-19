@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.taskmudahchat.data.source.local.ChatDao
 import com.example.taskmudahchat.data.source.local.ChatDb
+import com.example.taskmudahchat.data.source.local.LocalSource
 import com.example.taskmudahchat.data.source.local.LocalSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -32,6 +33,6 @@ object DbModule {
     fun provideChatDao(chatDb: ChatDb): ChatDao = chatDb.chatDao()
 
     @Provides
-    fun provideLocalSource(chatDao: ChatDao): LocalSourceImpl = LocalSourceImpl(chatDao)
+    fun provideLocalSource(chatDao: ChatDao): LocalSource = LocalSourceImpl(chatDao)
 
 }

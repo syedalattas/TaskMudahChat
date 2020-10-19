@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskmudahchat.data.DataResource
+import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.ChatRepository
 import kotlinx.coroutines.launch
@@ -28,12 +28,18 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
         val message = newMessage.value
         _viewState.value = ViewState.LoadingState()
         viewModelScope.launch {
+
+            // send message to api
             val result = chatRepository.sendMessage(message!!)
-            _viewState.value = ViewState.DefaultState()
-            newMessage.value = null
-            if (result is DataResource.Error) {
+
+            // let UI return to default state, handle error if any
+            if (result is ResponseWrapper.Success) {
+                _viewState.value = ViewState.DefaultState()
+            } else {
                 _viewState.value = ViewState.ErrorState()
             }
+            // reset message no matter the state
+            newMessage.value = null
         }
     }
 }
@@ -44,5 +50,5 @@ sealed class ViewState(
 ) {
     class DefaultState : ViewState()
     class LoadingState : ViewState(false, true)
-    class ErrorState: ViewState(true)
+    class ErrorState : ViewState(true)
 }
