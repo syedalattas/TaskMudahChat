@@ -68,6 +68,10 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_view_model_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_view_model_version"
 
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
     // room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -78,10 +82,8 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_testing_version"
     // to test coroutines
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-
-    // retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    // mockk
+    testImplementation "io.mockk:mockk:1.10.2"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

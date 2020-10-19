@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
     ViewModel() {
 
-    val chats: LiveData<List<Chat>> = chatRepository.getChats()
+    val chats: LiveData<List<Chat>> by lazy { chatRepository.getChats() }
 
     // Two-way dataBinding, exposing MutableLiveData
     val newMessage = MutableLiveData<String>()
