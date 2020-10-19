@@ -44,17 +44,15 @@
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:orientation="horizontal"
-            android:padding="8dp"
+            android:padding="@dimen/padding_sixteen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
+                style="@style/MessageEditText"
                 android:id="@+id/etMessage"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/write_your_message_here"
                 android:text="@={chatViewModel.newMessage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnSend"
@@ -63,12 +61,11 @@
 
             <ImageButton
                 android:id="@+id/btnSend"
+                style="@style/SendButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="@{() -> chatViewModel.sendMessage()}"
-                android:src="@drawable/ic_baseline_send_24"
-                android:text="@string/send"
                 android:tint="@{chatViewModel.enableSendButton ? @color/colorPrimary : @color/colorGrey}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

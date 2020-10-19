@@ -18,11 +18,21 @@
     </style>
 
     <style name="Message" parent="Widget.MaterialComponents.TextView">
-        <item name="android:padding">@dimen/bubble_padding</item>
+        <item name="android:padding">@dimen/padding_eight</item>
     </style>
 
     <style name="BubblePadding">
-        <item name="android:padding">@dimen/bubble_padding</item>
+        <item name="android:padding">@dimen/padding_eight</item>
     </style>
 
+    <style name="SendButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:text">@string/send</item>
+        <item name="android:src">@drawable/ic_baseline_send_24</item>
+    </style>
+
+    <style name="MessageEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:hint">@string/write_your_message_here</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">@dimen/zero</item>
+    </style>
 </resources>
