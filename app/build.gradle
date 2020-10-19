@@ -72,6 +72,12 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+    // hamcrest
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
+    // test live data
+    testImplementation "androidx.arch.core:core-testing:$arch_testing_version"
+    // to test coroutines
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
