@@ -26,7 +26,7 @@ class ChatViewModelTest {
     @get:Rule
     // allows us to test liveData
     var instantExecutorRule = InstantTaskExecutorRule()
-
+    // allows us to test any dispatchers use in a function
     @get:Rule
     var coroutinesTestRule = CoroutinesTestRule()
 
