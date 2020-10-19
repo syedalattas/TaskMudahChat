@@ -34,7 +34,7 @@ Coding challenge: Develop a simple Android/iOS app (with Java, Kotlin or Swift) 
 ## Missing features
 1. Display a message if user did not type anything for a minute
 2. Use RxJava instead of Coroutine
-3. Defined proper error message (like network error message)
+3. Show error from retrofit properly
 
 ## Reference
 1. [architecture-samples](https://github.com/android/architecture-samples)
