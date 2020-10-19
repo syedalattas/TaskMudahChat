@@ -37,8 +37,8 @@ Coding challenge: Develop a simple Android/iOS app (with Java, Kotlin or Swift) 
 3. Defined proper error message (like network error message)
 
 ## Reference
-[Architecture, LiveData Utils, Unit Test Utils](https://github.com/android/architecture-samples)
-[Architecture](https://itnext.io/android-architecture-hilt-mvvm-kotlin-coroutines-live-data-room-and-retrofit-ft-8b746cab4a06)
+[architecture-samples](https://github.com/android/architecture-samples)
+[architecture-rick-and-morty](https://itnext.io/android-architecture-hilt-mvvm-kotlin-coroutines-live-data-room-and-retrofit-ft-8b746cab4a06)
 
 ## Screenshots
 <img src="screenshots/mudah_default.png" alt="drawing" height="500"/> 
