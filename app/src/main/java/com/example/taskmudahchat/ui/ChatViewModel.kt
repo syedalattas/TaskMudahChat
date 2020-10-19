@@ -1,10 +1,7 @@
 package com.example.taskmudahchat.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.ChatRepository
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
@@ -18,6 +15,11 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
 
     // Two-way dataBinding, exposing MutableLiveData
     val newMessage = MutableLiveData<String>()
+
+    // listen for changes from newMessage, and reflect back to button in UI
+    val enableSendButton: LiveData<Boolean> = Transformations.switchMap(newMessage) {
+        MutableLiveData(it != null && it.isNotEmpty())
+    }
 
     // expose UI state in a state class
     private val _viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.DefaultState())

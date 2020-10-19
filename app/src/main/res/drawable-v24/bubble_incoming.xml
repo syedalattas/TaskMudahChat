@@ -5,5 +5,5 @@
         android:bottomLeftRadius="@dimen/bubble_radius"
         android:bottomRightRadius="@dimen/bubble_radius"
         android:topRightRadius="@dimen/bubble_radius" />
-    <solid android:color="@color/colorLightGrey" />
+    <solid android:color="@color/colorWhite" />
 </shape>

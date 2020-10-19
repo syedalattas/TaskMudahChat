@@ -120,4 +120,26 @@ class ChatViewModelTest {
         // calling getContentIfNotHandled again should return null
         assertThat(event.getContentIfNotHandled(), `is`(nullValue()))
     }
+
+    @Test
+    fun enableSendButton_newMessageNull_returnFalse(){
+
+        // when newMessage is null
+        chatViewModel.newMessage.value = null
+
+        // then enableSendButton should be false
+        val result = chatViewModel.enableSendButton.getOrAwaitValue()
+        assertThat(result, `is`(false))
+    }
+
+    @Test
+    fun enableSendButton_newMessage_returnTrue(){
+
+        // when newMessage is not null
+        chatViewModel.newMessage.value = "message"
+
+        // then enableSendButton should be false
+        val result = chatViewModel.enableSendButton.getOrAwaitValue()
+        assertThat(result, `is`(true))
+    }
 }
