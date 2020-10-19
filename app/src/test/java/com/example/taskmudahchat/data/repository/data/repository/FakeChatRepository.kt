@@ -8,7 +8,6 @@ import com.example.taskmudahchat.data.repository.ChatRepository
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 
 class FakeChatRepository : ChatRepository {
-
     private val observable = MutableLiveData<List<Chat>>()
 
     fun addChats(chats: List<Chat>?) {

@@ -65,7 +65,7 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun sendMessage_whenSuccess_resetLoadingErrorMessage() = runBlockingTest {
+    fun sendMessage_whenSuccess_resetLoadingAndMessage() = runBlockingTest {
 
         // given that user write a message
         chatViewModel.newMessage.value = "message"
@@ -76,7 +76,7 @@ class ChatViewModelTest {
         // then state should return to DefaultState
         val result = chatViewModel.viewState.getOrAwaitValue()
         val messageState = chatViewModel.newMessage.getOrAwaitValue()
-        assertThat(result.isError, `is`(false))
+
         assertThat(result.isLoading, `is`(false))
         assertThat(messageState, `is`(nullValue()))
     }

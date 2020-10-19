@@ -8,21 +8,24 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.ChatRepository
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
+import com.example.taskmudahchat.util.Event
 import kotlinx.coroutines.launch
 
 class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
     ViewModel() {
 
+    val chats: LiveData<List<Chat>> = chatRepository.getChats()
+
     // Two-way dataBinding, exposing MutableLiveData
     val newMessage = MutableLiveData<String>()
 
-    // we want to avoid the UI from effecting the value of the state so we will only
-    // expose viewState, and the value of viewState will be controlled by _viewState
-    // which is only available in this class
+    // expose UI state in a state class
     private val _viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.DefaultState())
     val viewState: LiveData<ViewState> = _viewState
 
-    val chats: LiveData<List<Chat>> = chatRepository.getChats()
+    // observe once
+    private val _showToast = MutableLiveData<Event<String>>()
+    val showToast: LiveData<Event<String>> = _showToast
 
     fun sendMessage() {
         val message = newMessage.value
@@ -33,22 +36,19 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
             val result = chatRepository.sendMessage(message)
 
             // let UI return to default state, handle error if any
-            if (result is ResponseWrapper.Success) {
-                _viewState.value = ViewState.DefaultState()
-            } else {
-                _viewState.value = ViewState.ErrorState()
-            }
-            // reset message no matter the state
+            _viewState.value = ViewState.DefaultState()
+            // reset message
             newMessage.value = null
+            if (result is ResponseWrapper.Error) {
+                _showToast.value = Event(result.message!!)
+            }
         }
     }
 }
 
 sealed class ViewState(
-    val isError: Boolean? = false, // to be used in the UI to show error message
     val isLoading: Boolean? = false,
 ) {
     class DefaultState : ViewState()
-    class LoadingState : ViewState(false, true)
-    class ErrorState : ViewState(true)
+    class LoadingState : ViewState(false)
 }

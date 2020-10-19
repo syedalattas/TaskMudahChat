@@ -1,6 +1,7 @@
 package com.example.taskmudahchat.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,6 +28,7 @@ class ChatActivity : AppCompatActivity() {
         initBinding()
         initList()
         observeData()
+        setupToast()
     }
 
     private fun initBinding() {
@@ -45,6 +47,14 @@ class ChatActivity : AppCompatActivity() {
     private fun observeData() {
         viewModel.chats.observe(this, {
             chatAdapter.submitList(it)
+        })
+    }
+
+    private fun setupToast() {
+        viewModel.showToast.observe(this, {
+            it.getContentIfNotHandled()?.let { message ->
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
         })
     }
 }
