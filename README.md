@@ -4,7 +4,9 @@ Coding challenge: Develop a simple Android/iOS app (with Java, Kotlin or Swift) 
 ## Android Studio
 1. Developed on version 4.0.1
 2. Code tested on emulator (Pixel 3A API 29)
-3. Run gradle before running the project
+3. Clone the project and open with Android Studio
+4. Run gradle
+5. Run the project
 
 ## Libraries
 1. Architecture
