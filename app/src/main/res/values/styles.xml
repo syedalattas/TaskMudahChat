@@ -7,4 +7,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="InComingMessage" parent="Message">
+        <item name="android:background">@drawable/bubble_incoming</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
+    </style>
+
+    <style name="OutGoingMessage" parent="Message">
+        <item name="android:background">@drawable/bubble_outgoing</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Message" parent="Widget.MaterialComponents.TextView">
+        <item name="android:padding">@dimen/bubble_padding</item>
+    </style>
+
+    <style name="BubblePadding">
+        <item name="android:padding">@dimen/bubble_padding</item>
+    </style>
+
 </resources>
