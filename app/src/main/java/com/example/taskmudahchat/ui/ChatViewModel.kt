@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.ChatRepository
+import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 import kotlinx.coroutines.launch
 
 class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
@@ -30,7 +30,7 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
         viewModelScope.launch {
 
             // send message to api
-            val result = chatRepository.sendMessage(message!!)
+            val result = chatRepository.sendMessage(message)
 
             // let UI return to default state, handle error if any
             if (result is ResponseWrapper.Success) {

@@ -1,7 +1,9 @@
-package com.example.taskmudahchat.data.repository
+package com.example.taskmudahchat.data.repository.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.taskmudahchat.data.model.Chat
+import com.example.taskmudahchat.data.repository.ChatRepository
+import com.example.taskmudahchat.data.repository.ChatRepositoryImpl
 import com.example.taskmudahchat.data.repository.data.source.FakeLocalSource
 import com.example.taskmudahchat.data.repository.data.source.FakeRemoteSource
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
@@ -17,8 +19,8 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class ChatRepositoryTest {
 
-    // rule to test liveData
     @get:Rule
+    // allows us to test liveData
     var instantExecutorRule = InstantTaskExecutorRule()
 
     // some instances
@@ -32,7 +34,6 @@ class ChatRepositoryTest {
         remoteSource = FakeRemoteSource()
         chatRepository = ChatRepositoryImpl(localSource, remoteSource)
     }
-
 
     @Test
     fun getChat_nonEmptyList_shouldNotBeNull() {

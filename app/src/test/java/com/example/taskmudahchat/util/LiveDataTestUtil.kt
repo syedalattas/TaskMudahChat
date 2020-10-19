@@ -1,4 +1,4 @@
-package com.example.taskmudahchat.data.repository.util
+package com.example.taskmudahchat.util
 
 
 import androidx.annotation.VisibleForTesting
