@@ -89,6 +89,7 @@ class ChatViewModelTest {
         val result = chatViewModel.viewState.getOrAwaitValue()
 
         assertThat(result is ViewState.DefaultState, `is`(true))
+        assertThat(result.isLoading, `is`(false))
     }
 
     @Test
@@ -102,6 +103,7 @@ class ChatViewModelTest {
         val result = chatViewModel.viewState.getOrAwaitValue()
 
         assertThat(result is ViewState.DefaultState, `is`(true))
+        assertThat(result.isLoading, `is`(false))
     }
 
     @Test

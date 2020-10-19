@@ -50,5 +50,5 @@ sealed class ViewState(
     val isLoading: Boolean? = false,
 ) {
     class DefaultState : ViewState()
-    class LoadingState : ViewState(false)
+    class LoadingState : ViewState(true)
 }
