@@ -16,6 +16,9 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
     // Two-way dataBinding, exposing MutableLiveData
     val newMessage = MutableLiveData<String>()
 
+    // we want to avoid the UI from effecting the value of the state so we will only
+    // expose viewState, and the value of viewState will be controlled by _viewState
+    // which is only available in this class
     private val _viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.DefaultState())
     val viewState: LiveData<ViewState> = _viewState
 
