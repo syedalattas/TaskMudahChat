@@ -1,5 +1,6 @@
-# TaskMudahChat
-Coding challenge: Develop a simple Android/iOS app (with Java, Kotlin or Swift) that features a chat screen with preloaded data.
+## What is this repo about
+Initially created as a task for an interview, but now decided to use it as a reference point
+which I will be using to apply whatever I learnt and implement them here.
 
 ## Android Studio
 1. Developed on version 4.0.1
@@ -21,6 +22,8 @@ Coding challenge: Develop a simple Android/iOS app (with Java, Kotlin or Swift) 
     
 3. API
     1. Retrofit
+    2. Moshi (Json library replacing Gson)
+    3. Logging Interceptor
     
 4. Test
     1. Mockk
