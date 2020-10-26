@@ -41,4 +41,5 @@ ext {
     arch_testing_version = '2.1.0'
     coroutines_version = '1.2.1'
     moshi_version = '2.7.1'
+    logging_version = '4.9.0'
 }
