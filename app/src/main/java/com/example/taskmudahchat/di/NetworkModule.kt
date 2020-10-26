@@ -1,13 +1,12 @@
 package com.example.taskmudahchat.di
 
 import com.example.taskmudahchat.data.source.remote.ChatService
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 const val BASE_URL = "https://reqres.in/api/ "
@@ -20,7 +19,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+        .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
     @Provides
