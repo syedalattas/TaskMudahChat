@@ -8,6 +8,9 @@ import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 import com.example.taskmudahchat.util.Event
 import kotlinx.coroutines.launch
 
+// view state - observe data for state change like loading
+// view effect - fire and forget like single live event - showing toast, navigate
+// view event - user event
 class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
     ViewModel() {
 
