@@ -10,11 +10,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Module
 @InstallIn(ApplicationComponent::class)
 object RepositoryModule {
 
+    @ExperimentalCoroutinesApi
     @Provides
     fun provideChatRepository(
         localSourceImpl: LocalSource,

@@ -1,7 +1,6 @@
 package com.example.taskmudahchat.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.model.SendResponse
 import com.example.taskmudahchat.data.repository.ChatRepository
@@ -13,6 +12,8 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -26,6 +27,7 @@ class ChatViewModelTest {
     @get:Rule
     // allows us to test liveData
     var instantExecutorRule = InstantTaskExecutorRule()
+
     // allows us to test any dispatchers use in a function
     @get:Rule
     var coroutinesTestRule = CoroutinesTestRule()
@@ -37,7 +39,6 @@ class ChatViewModelTest {
 
     @Before
     fun createViewModel() {
-
         MockKAnnotations.init(this)
         chatViewModel = ChatViewModel(chatRepository)
     }
@@ -45,7 +46,7 @@ class ChatViewModelTest {
     @Test
     fun getChat_nonEmptyList_shouldNotBeNull() {
 
-        every { chatRepository.getChats() } returns MutableLiveData(
+        every { runBlocking { chatRepository.getChats() } } returns flowOf(
             mutableListOf(
                 Chat("timestamp", "direction", "message"),
                 Chat("timestamp", "direction", "message"),
@@ -54,6 +55,7 @@ class ChatViewModelTest {
         )
 
         // when view model get chat from repo
+        chatViewModel.getChats()
         val result = chatViewModel.chats.getOrAwaitValue()
 
         // then data should not be null
@@ -64,9 +66,10 @@ class ChatViewModelTest {
     fun getChat_empty_shouldReturnEmptyList() {
 
         // given that repo returns empty
-        every { chatRepository.getChats() } returns MutableLiveData(mutableListOf())
+        every { runBlocking { chatRepository.getChats() } } returns flowOf(mutableListOf())
 
         // when view model get chat from repo
+        chatViewModel.getChats()
         val result = chatViewModel.chats.getOrAwaitValue()
 
         // then result should be null (should be handled by UI)
@@ -122,7 +125,7 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun enableSendButton_newMessageNull_returnFalse(){
+    fun enableSendButton_newMessageNull_returnFalse() {
 
         // when newMessage is null
         chatViewModel.newMessage.value = null
@@ -133,7 +136,7 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun enableSendButton_newMessage_returnTrue(){
+    fun enableSendButton_newMessage_returnTrue() {
 
         // when newMessage is not null
         chatViewModel.newMessage.value = "message"

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmudahchat.R
 import com.example.taskmudahchat.databinding.ActivityChatBinding
@@ -25,6 +26,7 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat)
 
+        viewModel.getChats()
         initBinding()
         initList()
         observeData()
@@ -45,13 +47,13 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
-        viewModel.chats.observe(this, {
+        viewModel.chats.observe(this, Observer {
             chatAdapter.submitList(it)
         })
     }
 
     private fun setupToast() {
-        viewModel.showToast.observe(this, {
+        viewModel.showToast.observe(this, Observer {
             it.getContentIfNotHandled()?.let { message ->
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }

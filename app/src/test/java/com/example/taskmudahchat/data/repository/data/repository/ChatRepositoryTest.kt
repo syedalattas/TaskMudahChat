@@ -1,7 +1,6 @@
 package com.example.taskmudahchat.data.repository.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.model.SendResponse
 import com.example.taskmudahchat.data.repository.ChatRepository
@@ -9,11 +8,15 @@ import com.example.taskmudahchat.data.repository.ChatRepositoryImpl
 import com.example.taskmudahchat.data.source.local.LocalSource
 import com.example.taskmudahchat.data.source.remote.RemoteSource
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
+import com.example.taskmudahchat.util.CoroutinesTestRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
@@ -45,35 +48,36 @@ class ChatRepositoryTest {
     }
 
     @Test
-    fun getChat_nonEmptyList_shouldNotBeNull() {
+    fun getChat_nonEmptyList_shouldNotBeNull() = runBlockingTest {
 
         // assuming a set of data exist in db as below
-        every { localSource.getChats() } returns MutableLiveData(
-            mutableListOf(
-                Chat("timestamp", "direction", "message"),
-                Chat("timestamp", "direction", "message"),
-                Chat("timestamp", "direction", "message"),
-            )
-        )
+        every { localSource.getChats() } returns
+                flowOf(
+                    mutableListOf(
+                        Chat("timestamp", "direction", "message"),
+                        Chat("timestamp", "direction", "message"),
+                        Chat("timestamp", "direction", "message"),
+                    )
+                )
 
         // when getting all chats from db
         val result = chatRepository.getChats()
 
         // then chats should not return null
-        assertThat(result.value, `is`(notNullValue()))
+        assertThat(result.toList(), `is`(notNullValue()))
     }
 
     @Test
-    fun getChat_emptyList_returnEmpty() {
+    fun getChat_emptyList_returnEmpty() = runBlockingTest {
 
         // assuming there is no data in db,
-        every { localSource.getChats() } returns MutableLiveData(mutableListOf())
+        every { localSource.getChats() } returns flowOf(mutableListOf())
 
         // when getting all chats
         val result = chatRepository.getChats()
 
         // then chats should be empty instead of null
-        assertThat(result.value, `is`(notNullValue()))
+        assertThat(result.toList(), `is`(notNullValue()))
     }
 
     @Test

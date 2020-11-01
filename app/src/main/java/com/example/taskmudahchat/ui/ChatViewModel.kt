@@ -6,6 +6,7 @@ import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.repository.ChatRepository
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
 import com.example.taskmudahchat.util.Event
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 // view state - observe data for state change like loading
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 class ChatViewModel @ViewModelInject constructor(private val chatRepository: ChatRepository) :
     ViewModel() {
 
-    val chats: LiveData<List<Chat>> by lazy { chatRepository.getChats() }
+    private val mutableChats: MutableLiveData<List<Chat>> = MutableLiveData(arrayListOf())
+    val chats: LiveData<List<Chat>> = mutableChats
 
     // Two-way dataBinding, exposing MutableLiveData
     val newMessage = MutableLiveData<String>()
@@ -46,6 +48,14 @@ class ChatViewModel @ViewModelInject constructor(private val chatRepository: Cha
             newMessage.value = null
             if (result is ResponseWrapper.Error) {
                 _showToast.value = Event(result.message!!)
+            }
+        }
+    }
+
+    fun getChats() {
+        viewModelScope.launch {
+            chatRepository.getChats().collect {
+                mutableChats.postValue(it)
             }
         }
     }
