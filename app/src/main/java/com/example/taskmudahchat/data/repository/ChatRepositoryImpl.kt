@@ -1,12 +1,14 @@
 package com.example.taskmudahchat.data.repository
 
-import androidx.lifecycle.LiveData
 import com.example.taskmudahchat.data.model.Chat
 import com.example.taskmudahchat.data.model.SendResponse
 import com.example.taskmudahchat.data.source.local.LocalSource
 import com.example.taskmudahchat.data.source.remote.RemoteSource
 import com.example.taskmudahchat.data.source.remote.ResponseWrapper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 
+@ExperimentalCoroutinesApi
 class ChatRepositoryImpl(
     private val localSourceImpl: LocalSource,
     private val remoteSourceImpl: RemoteSource
@@ -14,7 +16,9 @@ class ChatRepositoryImpl(
     ChatRepository {
 
     // get all chat from db
-    override fun getChats(): LiveData<List<Chat>> = localSourceImpl.getChats()
+    override suspend fun getChats(): Flow<List<Chat>> {
+        return localSourceImpl.getChats()
+    }
 
     // send message via api and store message to db on success
     override suspend fun sendMessage(message: String?): ResponseWrapper<SendResponse> {
